@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   
+    <title>Song Count</title>
+  </head>
+  <body>
+    <a href="/users/<%= current_user.id %>"> Dash Board</a>
+    <h1>Others who added <%= @song.title %> by <%= @song.artist %>:</h1>
+   <div class="col-md-6">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Times Added</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <% if Add.find_by_song_id_and_user_id(@song.id, user.id)  %>
+          <tr>
+            <td><a href="/users/show/<%= user.id %>"><%= user.first_name %> <%= user.last_name %></a></td>
+            <td><%= Add.where(song: @song).where(user: user.id).count %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+	</div>
+  </body>
+</html>

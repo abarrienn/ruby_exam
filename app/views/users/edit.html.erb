@@ -1,0 +1,25 @@
+<body>
+
+	<div class="form-group">
+			 <h1>Update <%= current_user.first_name %> Information</h1>
+			<form action="/users/<%= current_user.id %>" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+				<input type="hidden" name="_method" value="patch">
+
+				<p><label for="first_name"> First Name: </label>
+				<input type="text" name="first_name" value="<%= current_user.first_name %>"></p>
+
+				<p><label for="last_name"> Last Name: </label>
+				<input type="text" name="last_name" value="<%= current_user.last_name %>"></p>
+
+				<p><label for="email">Email: </label>
+				<input type="text" name="email" value="<%= current_user.email %>"></p>
+				<input type="submit" name="submit" value="Update">
+			</form>
+			<form action="/users/<%= current_user.id %>" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+				<input type="hidden" name="_method" value="delete">
+				<input type="submit" name="submit" value="Delete User">
+			</form>
+		</div>
+</body>

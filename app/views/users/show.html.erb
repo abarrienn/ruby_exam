@@ -1,0 +1,51 @@
+<h1>Welcome, <%= @current_user.first_name %>!</h1>
+<p><a href="/users/<%=current_user.id%>" data-method="delete">Delete User</a></p>
+<p><a href="/users/edit/<%= current_user.id %>">Edit Profile</a></p>
+
+
+
+<h1>All Songs</h1>
+<div class="col-md-6">
+	
+	<table class="table table-striped">
+		<thead>
+        <tr>
+          <th>Artist</th>
+          <th>Title</th>
+          <th>Times Added</th>
+          <th>Add to Playlist</th>
+        </tr>
+      </thead>
+      <% @all_songs.each do |song| %>
+		<tr>
+			<td><%= song.artist %></td>	
+			<td><a href="/songs/<%= song.id %>"><%= song.title %></a></td>	
+			<td><%= song.adds.count %> Adds </td>
+			<% song.users.include?(current_user) %>
+					<td><form action="adds/<%= song.id %>/create" method="post">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+					<input type="submit" name="create" value="Add">
+					</form>
+					</td>
+		</tr>
+
+			
+		</tr>
+		<% end %>
+	</table>
+</div>
+
+<h2>Add a Song</h2>
+<div class="row col-lg-6">
+		<div class="form-group">
+			<form action="/songs/create" method="post">
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+				<p><label for="title">Title: </label>
+				<input type="text" name="title"></p>
+
+				<p><label for="artist">Artist: </label>
+				<input type="text" name="artist"></p>
+				<input type="submit" name="submit" value="Add Song">
+			</form>
+		</div>
+</div>
